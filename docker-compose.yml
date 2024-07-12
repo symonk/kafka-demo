@@ -1,0 +1,35 @@
+version: '3.9'
+name: kafkademo 
+
+services:
+  postgres:
+    # define the image we use from dockerhub
+    # keep it small with alpine.
+    image: postgres:16.3-alpine
+    restart: always
+    shm_size: 128mb
+    ports: 
+      - 5432:5432
+    expose:
+      - 5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./sql/bootstrap.sql:/docker-entrypoint-initdb.d/bootstrap.sql
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=kafka
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres-data:
