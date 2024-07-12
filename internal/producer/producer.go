@@ -11,7 +11,7 @@ type SimpleProducer struct {
 	producer *kafka.Producer
 }
 
-func New(cfg *kafka.ConfigMap) *SimpleProducer {
+func NewProducer(cfg *kafka.ConfigMap) *SimpleProducer {
 	prod, err := kafka.NewProducer(cfg)
 	if err != nil {
 		panic(err)
@@ -27,6 +27,5 @@ func (s *SimpleProducer) Produce(message *kafka.Message) {
 
 // Stop closes the producer
 func (s *SimpleProducer) Stop() {
-	// TODO: err handling
 	s.producer.Close()
 }
