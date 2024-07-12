@@ -10,7 +10,7 @@ import (
 
 func main() {
 	fmt.Println("in main")
-	cfg := kafka.ConfigMap{}
+	cfg := kafka.ConfigMap{"bootstrap.servers": "localhost"}
 	prod := producer.New(&cfg)
 	defer prod.Stop()
 	consumer := consumer.New(&cfg)
