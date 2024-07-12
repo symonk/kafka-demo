@@ -11,7 +11,7 @@ type SimpleProducer struct {
 	producer *kafka.Producer
 }
 
-func NewProducer(cfg *kafka.ConfigMap) *SimpleProducer {
+func New(cfg *kafka.ConfigMap) *SimpleProducer {
 	prod, err := kafka.NewProducer(cfg)
 	if err != nil {
 		panic(err)
