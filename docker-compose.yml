@@ -89,6 +89,11 @@ services:
       - kafka1
       - kafka2 
       - kafka3
+    healthcheck:
+      test: ["CMD", "kafka-topics.sh", "--bootstrap-server", "kafka1:19092", "--list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     entrypoint: [ '/bin/sh', '-c' ]
     command: |
       "
